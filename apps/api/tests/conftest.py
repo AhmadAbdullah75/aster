@@ -9,6 +9,14 @@ import pytest
 from dotenv import dotenv_values
 
 ROOT = Path(__file__).resolve().parents[3]
+
+
+@pytest.fixture(scope="session", autouse=True)
+def evidence_directory():
+    """Fresh clones must not depend on ignored artifacts left by earlier local runs."""
+    (ROOT / "artifacts" / "prepublication").mkdir(parents=True, exist_ok=True)
+
+
 values = dotenv_values(ROOT / ".env")
 url = str(values["DATABASE_URL"]).replace("postgresql+psycopg://", "postgresql://")
 test_url = url.rsplit("/", 1)[0] + "/nexus_test"
