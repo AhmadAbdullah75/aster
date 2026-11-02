@@ -1,0 +1,48 @@
+name: Checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  deterministic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: nexus
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d nexus"
+          --health-interval 5s --health-timeout 5s --health-retries 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "11.25.0"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: python -m pip install uv
+      - run: uv sync --locked
+      - run: pnpm install --frozen-lockfile
+      - run: cp .github/ci.env.example .env
+      - name: Backend
+        env:
+          PYTHONPATH: apps/api
+        run: |
+          uv run ruff check apps/api tests/e2e
+          uv run mypy apps/api/nexus
+          uv run pytest -q
+      - name: Frontend
+        run: |
+          pnpm lint
+          pnpm typecheck
+          pnpm test
+          pnpm build
