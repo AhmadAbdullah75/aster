@@ -1,0 +1,72 @@
+GREENROUTE CAMPUS SHUTTLE PILOT
+Synthetic document for testing document-grounded AI answers.
+Version: 1.0 | All people, arrangements, and figures are fictional.
+
+SECTION 1 — PROJECT OVERVIEW
+GreenRoute is a four-week campus shuttle pilot for students travelling between
+North Gate and Science Block. It aims to reduce walking time during afternoon heat.
+Pilot start: 9 November 2026.
+Pilot end: 6 December 2026.
+Operating days: Monday to Friday only.
+There are no public-holiday closures during this pilot.
+Project coordinator: Ayesha Malik.
+Operations lead: Hamza Noor.
+Safety officer: Mariam Shah.
+
+SECTION 2 — SERVICE SCHEDULE AND CAPACITY
+Two shuttles operate each weekday.
+Each shuttle has 12 passenger seats; the driver does not occupy a passenger seat.
+Each shuttle completes 8 one-way trips per operating day.
+One passenger journey means one occupied seat on one one-way trip.
+Passengers making return journeys count as two passenger journeys.
+Planning assumption: 75 percent of available passenger seats are occupied.
+Service hours: 12:00 PM to 4:00 PM, Asia/Karachi.
+The operating-day count for this four-week pilot is 20 days.
+
+SECTION 3 — FINANCIAL PLAN
+Approved expense budget: PKR 180,000.
+One-time vehicle preparation expense: PKR 20,000 for both shuttles combined.
+Daily driver expense: PKR 2,000 per shuttle.
+Daily charging expense: PKR 500 per shuttle.
+Fare: PKR 30 per passenger journey.
+Assume exactly the planned occupancy for financial calculations.
+There are no other pilot expenses or revenues.
+The approved expense budget is a spending cap, not revenue.
+
+SECTION 4 — PERFORMANCE AND ACCEPTANCE
+Average waiting-time target: no more than 10 minutes.
+Service completion target: at least 95 percent of scheduled trips completed.
+Every shuttle must pass a recorded safety inspection before its first daily trip.
+A missed safety inspection is a safety failure even if service completion meets
+the numerical target.
+Week 1 observation: 160 trips scheduled, 152 completed, average wait 11 minutes.
+Week 1 safety observation: one shuttle missed its inspection on Tuesday.
+Week 2 observation: 160 trips scheduled, 156 completed, average wait 8 minutes.
+Week 2 safety observation: all required inspections were completed.
+These observations are evaluation records; do not substitute actual completed
+trips for the planning assumptions in Section 3 unless explicitly asked.
+
+SECTION 5 — DELIVERABLES AND RESPONSIBILITIES
+Ayesha Malik: publish the route information sheet and final pilot report.
+Hamza Noor: prepare the daily driver roster and trip completion log.
+Mariam Shah: maintain the safety inspection checklist and incident log.
+The final report must include occupancy, waiting time, trip completion,
+fare revenue, expenses, and safety observations.
+
+SECTION 6 — SCOPE AND MISSING INFORMATION
+Included: the North Gate–Science Block route, driver scheduling, safety checks,
+trip tracking, and pilot evaluation.
+Excluded: additional routes, a mobile booking app, payment gateway integration,
+and purchasing new vehicles.
+No sponsor contribution is specified.
+No public booking URL, contact email, or phone number is provided.
+No campus-wide expansion date is specified.
+No passenger names, identifiers, or medical information are included.
+
+SECTION 7 — CURRENT AND SUPERSEDED DECISIONS
+Current decision, approved 2 November 2026: fare is PKR 30 per passenger journey.
+Superseded draft, dated 20 October 2026: proposed fare was PKR 25.
+Use the current approved fare for all calculations.
+No decision approving additional routes has been made.
+
+END OF DOCUMENT
