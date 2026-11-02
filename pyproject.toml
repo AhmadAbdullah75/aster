@@ -1,0 +1,52 @@
+[project]
+name = "nexus"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "httpx",
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic-settings",
+  "sqlalchemy[asyncio]",
+  "alembic",
+  "psycopg[binary,pool]",
+  "pgvector",
+  "langgraph",
+  "langgraph-checkpoint-postgres",
+  "langchain-openai",
+  "openai",
+  "argon2-cffi",
+  "python-multipart",
+  "pypdf",
+  "python-docx",
+  "tiktoken",
+  "email-validator",
+  "google-genai>=2.33.0",
+  "langchain-google-genai>=4.4.2",
+  "ddgs>=9.16.0",
+]
+
+[dependency-groups]
+dev = ["pytest", "pytest-asyncio", "httpx", "ruff", "mypy", "types-psycopg2"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["apps/api"]
+testpaths = ["apps/api/tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501", "B008"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
+exclude = ["tests", "migrations"]
