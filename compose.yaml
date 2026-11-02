@@ -1,0 +1,52 @@
+services:
+  postgres:
+    restart: unless-stopped
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports: ["127.0.0.1:5434:5432"]
+    volumes: ["nexus_pg:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  api:
+    restart: unless-stopped
+    profiles: [full]
+    build: {context: ., dockerfile: apps/api/Dockerfile}
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      DATA_DIR: /data
+    volumes: ["nexus_data:/data"]
+    depends_on: {postgres: {condition: service_healthy}}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready')"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    command: ["sh", "-c", "uv run alembic upgrade head && uv run python -m nexus.migrate_graph && uv run uvicorn nexus.main:app --host 0.0.0.0 --port 8000"]
+  worker:
+    restart: unless-stopped
+    profiles: [full]
+    build: {context: ., dockerfile: apps/api/Dockerfile}
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      DATA_DIR: /data
+    volumes: ["nexus_data:/data"]
+    depends_on: {postgres: {condition: service_healthy}, api: {condition: service_healthy}}
+    command: ["uv", "run", "python", "-m", "nexus.worker"]
+  web:
+    restart: unless-stopped
+    profiles: [full]
+    build: {context: ., dockerfile: apps/web/Dockerfile}
+    environment: {API_INTERNAL_URL: "http://api:8000"}
+    ports: ["127.0.0.1:3000:3000"]
+    depends_on: [api]
+volumes:
+  nexus_pg:
+  nexus_data:
